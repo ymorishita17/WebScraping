@@ -1,1 +1,64 @@
+開発者ツール:Command + Option + I
+
+>import requests, bs4
+
+##Web siteからHPをダウンロードして， レスポンスのtext属性をbes.BeautifulSoup()に渡す
+>res = requests.get('http://nostarch.com')
+>res.raise_for_status()
+
+#BeautifulSoupオブジェクトを変数no_starch_soupに格納する
+>no_starch_soup = bs4.BeautifulSoup(res.text)
+>type(no_starch_soup)
+
+##Fileオブジェクトを渡して，ハードドライブからHTMLファイルを読み込む場合
+#カレントディレクトリに目的のhtmlファイルがあるのを確認
+>import requests, bs4
+>example_file = open('example.html')
+>example_soup = bs4.BeautifulSoup(example_file)
+>type(example_soup)
+
+##select()メソッドを用いて要素を見つける
+CSSセレクタ：HTMLページから検索対処を指定するためのパターン
+soup.select('div')  すべての<div>要素
+soup.select('#author')  id属性がauthorである要素
+soup.select('.notice')  CSSクラス属性がnoticeである全要素
+soup.select('div span') <div>要素の直下のすべての<span>要素
+soup.select('input[name]')  name属性(任意)をもつすべての<input>要素
+soup.select('input[type="button"]')  type属性の値がbuttonであるすべての<input>要素
+
+#select()メソッドはTagオブジェクトのリストを返す
+#Tagオブジェクト：Beautiful SoupにおけるHTML要素の表現
+
+>import bs4
+>example_file = open('example.html')
+>example_soup = bs4.BeautifulSoup(example_file)
+>elems = example_soup.select('#author')
+>type(elems)
+>len(elems)
+>type(elems[0])
+
+#要素の内部テキストを取得できる(開始タグと終了タグの間の内容)
+>elems[0].getText()
+>str(elems[0])
+>elems[0].attrs
+
+## 要素の属性からデータを取得する
+#Tagオブフェクトのget()メソッドを用いる
+
+>import bs4
+>soup = bs4.BeautifulSoup(open('example.html'))
+>span_elem = soup.select('span')[0]
+>str(span_elem)
+>span_elem.get('id')
+>span_elem.get('some_nonexistent_addr') == None
+>span_elem.attrs
+
+
+
+
+
+
+
+
+
 
