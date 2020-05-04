@@ -1,0 +1,45 @@
+#requests.get()関数を用いてWebページをダウンロードする
+
+#1.requests.get()を呼び出してファイルをダウンロードする
+#2.open()に'wb'を渡して，バイナリ書き込みモードで新しいファイルを作成する
+#3.Respondオブジェクトのiter_content()メソッドを使ってループする
+#4.各繰り返しでwrite()を使ってファイルに書き込む
+#5.close()でファイルを閉じる
+
+
+> import requests
+> res = requests.get('https://automatetheboringstuff.com/files/rj.txt')
+> type(res)
+
+#属性を調べる
+#status_codeという属性をrequests.codes.okと比較することによってダウンロードが成功したか調べる
+> res.status_code == requests.codes.ok
+
+> len(res.text)
+
+> print(res.text[:250])
+
+#エラーをチェックする
+#raise_for_status()メソッドはダウントードが失敗した時に例外を起こしプログラムを停止させる．
+> res = requests.get('http://inventwithpython.com/page_that_does_not_exist')
+> res.raise_for_status()
+
+#プログラムを停止させるほどのものではないとき
+import requests
+res = requests.get('http://inventwithpython.com/page_that_does_not_exist') 
+try:
+    res.raise_for_status()
+except Exception as exc:
+    print('問題あり:{}'.format(exc))
+
+#ダウンロードしたファイルをハードドライブに保存する
+#open()関数とwrite()メソッドを使う，ただしopen()の第２引数にwbを渡して，バイナリ書き込みモードで開く必要がある
+> import requests
+> res = requests.get('https://automatetheboringstuff.com/files/rj.txt')
+> res.raise_for_status()
+> play_file = open('RomeoAndJuliet.txt', 'wb')
+> for chunk in res.inter_content(10000):
+    (空白必要)play_file.write(chunk)
+
+
+> play_file.close()
